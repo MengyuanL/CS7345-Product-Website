@@ -221,34 +221,4 @@ Analysis:
 Besides, the average execution time of web code(0.0085s) is much slower than that of native code(0.003266667s). 
 Above all, native code is more reliable and runs faster than the transcompiled web code.
 
-
-
-
-  
-
-
-  
-
-
-  
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## Lab2 
