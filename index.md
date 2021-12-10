@@ -9,8 +9,10 @@
 #### Step1（Preparation work）:
 
 Install git, CMake, Python, Visual Studio 2019 and configure environment variables. Here are some configuration screenshots if they are installed successfully.
+
 Git:
-[![Git.png](https://i.postimg.cc/VNmxYvjD/1.png)](https://postimg.cc/nXSR2HSD)
+[![1.png](https://i.postimg.cc/NfxVdBhX/1.png)](https://postimg.cc/4mmBdCx4)
+
 Cmake and python:
 
 
