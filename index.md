@@ -93,61 +93,118 @@ A few important things to remember:
 #### Algorithm(given a string s and return the longest palindromic substring in s)
   
 #include <iostream>
+  
 #include <string>
+  
 #include <vector>
+  
 #include<iomanip>
+  
 #include<ctime>
+  
 using namespace std;
+  
 class Solution {
+  
 public:
+  
     string longestPalindrome(string s) {
+  
         int n = s.size();
+  
         if (n < 2) {
+                  
             return s;
+                  
         }
+                  
         int maxLen = 1;
+                  
         int begin = 0;
+                  
         vector<vector<int>> dp(n, vector<int>(n));
+  
         for (int i = 0; i < n; i++) {
+                              
             dp[i][i] = true;
+                              
         }
+                              
         for (int L = 2; L <= n; L++) {
+  
             for (int i = 0; i < n; i++) {
+                                  
                 int j = L + i - 1;
+                                  
                 if (j >= n) {
+  
                     break;
+  
                 }
 
                 if (s[i] != s[j]) {
+  
                     dp[i][j] = false;
+  
                 }
+  
                 else {
+  
                     if (j - i < 3) {
+                                  
                         dp[i][j] = true;
+                                  
                     }
+                                  
                     else {
+                                  
                         dp[i][j] = dp[i + 1][j - 1];
+                                  
                     }
+                                  
                 }
+                                  
                 if (dp[i][j] && j - i + 1 > maxLen) {
+  
                     maxLen = j - i + 1;
+  
                     begin = i;
+  
                 }
+  
             }
+  
         }
+  
         return s.substr(begin, maxLen);
+  
     }
+  
 };
+  
 int main() {
+  
     Solution solution;
-    string test = "acbdefsdgasdgasdgsdgsddcgsadfvsdgbsfdgsadgdfhadfgsdayhgafasdfasgsdgasdjkhfgvsadhuvbsaduiafgshdgbsajdbvsadjkgbsdjkgbasdkjgasdsdagasdfhafdhashgbadfhnadfvsadfgasdgasdhsah";
+  
+    string test =
+  
+  "acbdefsdgasdgasdgsdgsddcgsadfvsdgbsfdgsadgdfhadfgsdayhgafasdfasgsdgasdjkhfgvsadhuvbsaduiafgshdgbsajdbvsadjkgbsdjkgbasdkjgasdsdagasdfhafdhashgbadfhnadfvsadfgasdgasdhsah";
+  
     string answer = "";
+  
     clock_t startTime, endTime;
+  
     startTime = clock();
+  
     answer = solution.longestPalindrome(test);
+  
     endTime = clock();
+  
     cout << answer << " The execution time is: " << (double)(endTime - startTime) / CLOCKS_PER_SEC << "s";
+  
 }
+  
+
 
   
 
