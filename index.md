@@ -210,6 +210,18 @@ int main() {
 
 ##### Result and Analysis
 
+[![13.png](https://i.postimg.cc/qMrdv1Xk/13.png)](https://postimg.cc/7bKRBMWc)
+[![14.png](https://i.postimg.cc/4xLCwsCd/14.png)](https://postimg.cc/xXzF1r1D)
+
+Analysis:
+
+  For web results, the 95% confidence interval is [0.004644268,0.012355732]. And the possibility of data are not in this interval is 2/30(0.013 and 0.014) which is nearly 6.67%. This means that the possibility of data are in this interval is 93.33%. So this possibility is less than 95% which means that the results are not statistically significant.
+  
+  For native results, the 95% confidence interval is [0.002242515,0.004290819]. And the possibility of data are not in this interval is 1/30(0.005) which is nearly 3.33%. This means that the possibility of data are in this interval is 96.67%. So this possibility is more than 95% which means that are statistically significant.
+Besides, the average execution time of web code(0.0085s) is much slower than that of native code(0.003266667s). 
+Above all, native code is more reliable and runs faster than the transcompiled web code.
+
+
 
 
   
