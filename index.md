@@ -47,6 +47,7 @@ Enter “./emsdk activate latest” to make the "latest" SDK "active" for the cu
 
 Create a “HelloWorld”.cpp:
 
+···c++
 #include <iostream>
   
 using namespace std;
@@ -92,6 +93,7 @@ A few important things to remember:
   
 #### Algorithm(given a string s and return the longest palindromic substring in s)
   
+```c++
 #include <iostream>
   
 #include <string>
