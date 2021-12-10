@@ -83,9 +83,74 @@ For the helloworld.html, first enter emrun --no_browser --port 8080 D:\Emscripte
 [![12.png](https://i.postimg.cc/WzKfRbnp/12.png)](https://postimg.cc/Zv8Lpm2X)
   
 A few important things to remember:
+  
 ① Every time you start the git terminal, you need to git bash on the emsdk folder. Otherwise the command won’t work.
+  
 ② Evert time after you start the git terminal, you need to enter “source ./emsdk_env.sh” to activate path and other environment variables in the current terminal. 
+  
 ③ I create a helloworld folder on the emsdk folder in order to manage those transcompiled files so I first git bash on the emsdk folder and then enter “source ./emsdk_env.sh” to activate path and other environment variables in the current terminal. After that, I enter “cd helloworld” to go to the helloworld folder and then enter those transcompiling command.
+  
+#### Algorithm(given a string s and return the longest palindromic substring in s)
+  
+#include <iostream>
+#include <string>
+#include <vector>
+#include<iomanip>
+#include<ctime>
+using namespace std;
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int n = s.size();
+        if (n < 2) {
+            return s;
+        }
+        int maxLen = 1;
+        int begin = 0;
+        vector<vector<int>> dp(n, vector<int>(n));
+        for (int i = 0; i < n; i++) {
+            dp[i][i] = true;
+        }
+        for (int L = 2; L <= n; L++) {
+            for (int i = 0; i < n; i++) {
+                int j = L + i - 1;
+                if (j >= n) {
+                    break;
+                }
+
+                if (s[i] != s[j]) {
+                    dp[i][j] = false;
+                }
+                else {
+                    if (j - i < 3) {
+                        dp[i][j] = true;
+                    }
+                    else {
+                        dp[i][j] = dp[i + 1][j - 1];
+                    }
+                }
+                if (dp[i][j] && j - i + 1 > maxLen) {
+                    maxLen = j - i + 1;
+                    begin = i;
+                }
+            }
+        }
+        return s.substr(begin, maxLen);
+    }
+};
+int main() {
+    Solution solution;
+    string test = "acbdefsdgasdgasdgsdgsddcgsadfvsdgbsfdgsadgdfhadfgsdayhgafasdfasgsdgasdjkhfgvsadhuvbsaduiafgshdgbsajdbvsadjkgbsdjkgbasdkjgasdsdagasdfhafdhashgbadfhnadfvsadfgasdgasdhsah";
+    string answer = "";
+    clock_t startTime, endTime;
+    startTime = clock();
+    answer = solution.longestPalindrome(test);
+    endTime = clock();
+    cout << answer << " The execution time is: " << (double)(endTime - startTime) / CLOCKS_PER_SEC << "s";
+}
+
+  
+
 
   
 
