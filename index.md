@@ -2,9 +2,9 @@
 
 ## If you want to download all the code for these labs,[click here](https://github.com/MengyuanL/CS7345-Lab-Mengyuan-Li).
 
-## Lab1 Emscripten installation and 2 programs(Hello World and algor)
+## Lab1 Emscripten installation and 2 programs(Hello World and algorithm)
 
-### Emscripten installation
+### Ⅰ. Emscripten installation
 
 #### Step1（Preparation work）:
 
@@ -40,6 +40,61 @@ Enter “./emsdk activate latest” to make the "latest" SDK "active" for the cu
 
 [![8.png](https://i.postimg.cc/VkJNw7WK/8.png)](https://postimg.cc/hXqnb1wm)
 [![9.png](https://i.postimg.cc/Jn5rxSRz/9.png)](https://postimg.cc/ZB0zK79G)
+
+### Ⅱ. Test programs
+
+#### Hello World 
+
+Create a “HelloWorld”.cpp:
+
+#include <iostream>
+  
+using namespace std;
+  
+int main()
+  
+{
+  
+    cout << "Hello World!\n";
+  
+}
+
+Enter emcc.bat HelloWorld.cpp to generate a.out.js and a.out.wasm. 
+  
+Enter emcc.bat HelloWorld.cpp -o helloworld.js to generate helloworld.js and helloworld.wasm. 
+ 
+Enter emcc.bat HelloWorld.cpp -o helloworld.html to generate helloworld.html.
+  
+[![10.png](https://i.postimg.cc/cHCW7CkX/10.png)](https://postimg.cc/Z9GX4bSd)
+ 
+Two ways of running the code:
+  
+1️⃣ Node.js
+  
+Use the following command to test the compiled code: node a.out.js
+  
+[![11.png](https://i.postimg.cc/L5BhwnRL/11.png)](https://postimg.cc/SYRyzQnx)
+  
+2️⃣ Browser
+  
+For the helloworld.html, first enter emrun --no_browser --port 8080 D:\Emscripten SDK\emsdk\helloworld\helloworld.html to start HTTP service.Then start browser and enter in the address bar: http://localhost:8080/helloworld.html.
+  
+[![16.png](https://i.postimg.cc/sXTNcJGh/16.png)](https://postimg.cc/62Gc6n0W)
+[![12.png](https://i.postimg.cc/WzKfRbnp/12.png)](https://postimg.cc/Zv8Lpm2X)
+  
+A few important things to remember:
+① Every time you start the git terminal, you need to git bash on the emsdk folder. Otherwise the command won’t work.
+② Evert time after you start the git terminal, you need to enter “source ./emsdk_env.sh” to activate path and other environment variables in the current terminal. 
+③ I create a helloworld folder on the emsdk folder in order to manage those transcompiled files so I first git bash on the emsdk folder and then enter “source ./emsdk_env.sh” to activate path and other environment variables in the current terminal. After that, I enter “cd helloworld” to go to the helloworld folder and then enter those transcompiling command.
+
+  
+
+
+
+  
+
+
+
 
 
 
