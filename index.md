@@ -59,6 +59,7 @@ int main()
     cout << "Hello World!\n";
   
 }
+```
 
 Enter emcc.bat HelloWorld.cpp to generate a.out.js and a.out.wasm. 
   
@@ -205,6 +206,12 @@ int main() {
     cout << answer << " The execution time is: " << (double)(endTime - startTime) / CLOCKS_PER_SEC << "s";
   
 }
+```
+
+##### Result and Analysis
+
+
+
   
 
 
