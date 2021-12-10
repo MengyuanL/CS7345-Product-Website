@@ -1,35 +1,31 @@
-## Welcome to my Emscripten Product Series Website
+# Welcome to my Emscripten Product Series Website
 
-### Lab1 Emscripten installation and first hello world program
+## If you want to download all the code for these labs,[click here](https://github.com/MengyuanL/CS7345-Lab-Mengyuan-Li).
 
-### Markdown
+## Lab1 Emscripten installation and first hello world program and example program
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Emscripten installation
 
-```markdown
-Syntax highlighted code block
+#### Step1（Preparation work）:
 
-# Header 1
-## Header 2
-### Header 3
+Install git, CMake, Python, Visual Studio 2019 and configure environment variables. Here are some configuration screenshots if they are installed successfully.
+Git:
+[![Git.png](https://i.postimg.cc/VNmxYvjD/1.png)](https://postimg.cc/nXSR2HSD)
+Cmake and python:
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
 
-**Bold** and _Italic_ and `Code` text
 
-[Link](url) and ![Image](src)
-```
+
+
+
+
+
+
+
+
+
 
 For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
 
-### Jekyll Themes
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/MengyuanL/CS7345-Product-Website/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
