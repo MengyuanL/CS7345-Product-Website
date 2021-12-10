@@ -47,7 +47,7 @@ Enter “./emsdk activate latest” to make the "latest" SDK "active" for the cu
 
 Create a “HelloWorld”.cpp:
 
-···c++
+```c++
 #include <iostream>
   
 using namespace std;
