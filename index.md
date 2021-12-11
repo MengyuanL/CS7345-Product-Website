@@ -221,4 +221,119 @@ Analysis:
 Besides, the average execution time of web code(0.0085s) is much slower than that of native code(0.003266667s). 
 Above all, native code is more reliable and runs faster than the transcompiled web code.
 
-## Lab2 
+## Lab2 Advanced Application
+
+### UML for the native code
+
+[![Lab2.jpg](https://i.postimg.cc/5t8JfrZz/Lab2.jpg)](https://postimg.cc/CZMXNcMM)
+
+### Explaination
+
+For the Ticket class, it represents all the tickets of one specific flight so it should contains the specific flight number, number of remaining tickets and price. Besides, it should contains the corresponding “get mehtod” which are getNum(), getPrice() and getFlightNumber(). Also, it should contain a reservation() method for passenger to book tickets: after a ticket is booked, then the num of object of Ticket with specific flight number would minus 1. 
+
+For the ReservationSystem class, it represents the reservation system and it contains a constructor to initialize the number of flights in the system.
+
+### Comparison
+
+For native main.cpp, I use the run code plug-in to run the code. 
+
+For index.html, I use the live server and Microsoft Edge to run the code.
+
+Native results
+
+[![Lab2.jpg](https://i.postimg.cc/mgbpP5zM/Lab2.jpg)](https://postimg.cc/4mSQMw1N)
+
+Web results
+
+[![Lab2-1.jpg](https://i.postimg.cc/fbVKXnw3/Lab2-1.jpg)](https://postimg.cc/HJCXDN8H)
+
+#### Comparison before reservation
+
+For native results, the 95% confidence interval is [5.910678068,15.889321932]. And the possibility of data are not in this interval is 1/30(23) which is nearly 3.33%. This means that the possibility of data are in this interval is 96.67%. So this possibility is more than 95% which means that the results are statistically significant.
+
+For web results, the 95% confidence interval is [1.289092805,2.257573861]. And the possibility of data are not in this interval is 1/30(2.8) which is nearly 3.33%. This means that the possibility of data are in this interval is 96.67%. So this possibility is more than 95% which means that are not statistically significant.
+
+#### Comparison after reservation
+
+For native results, the 95% confidence interval is [5.910678068,15.889321932]. And the possibility of data are not in this interval is 1/30(23) which is nearly 3.33%. This means that the possibility of data are in this interval is 96.67%. So this possibility is more than 95% which means that the results are statistically significant.
+
+For web results, the 95% confidence interval is [1.289092805,2.257573861]. And the possibility of data are not in this interval is 1/30(2.8) which is nearly 3.33%. This means that the possibility of data are in this interval is 96.67%. So this possibility is more than 95% which means that are not statistically significant.
+
+Besides, the average execution time of web code(1.773333333ms) is much faster than that of native code(10.9ms). And the standard deviation of web code(0.242120264) is much smaller than that of native code(2.494660966), which means that the result of web code is more concrete and stable than that of native code.
+
+#### Conclusion
+
+Above all, web code that utilizes the compiled js library is more faster and stable than the native C++ code that uses the native C++ library.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
