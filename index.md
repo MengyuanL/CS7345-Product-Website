@@ -325,31 +325,281 @@ Above all, web code that utilizes the compiled js library is more faster and sta
 
 ## Lab3 Multithread Program
 
+### UML 
 
+[![3.jpg](https://i.postimg.cc/cLwKJzM4/3.jpg)](https://postimg.cc/5X997nRZ)
 
+#### Ticket 
 
+```c++
+#pragma once
+class Ticket {
+    friend class ReservationThread;
+    friend class System;
+private:
+	int num;
+	double price;
+	int FlightNumber;
+public:
+	Ticket(int n, double p, int fn);
+	int getNum();
+	double getPrice();
+	int getFlightNumber();
+	void reservation();
+};
 
+#include"Ticket.hpp"
+#include<iostream>
+using namespace std;
+Ticket::Ticket(int n,double p,int fn) {
+	num = n;
+	price = p;
+	FlightNumber = fn;
+}
 
+int Ticket::getNum() {
+	return num;
+}
 
+double Ticket::getPrice() {
+	return price;
+}
 
+int Ticket::getFlightNumber() {
+	return FlightNumber;
+}
 
+void Ticket::reservation() {
+	num--;
+	cout<<"One ticket of the Flight "<<FlightNumber<<" has been sold"<<endl;
+}
+```
 
+#### ReservationThread
 
+```c++
+#pragma once
+#include<mutex>
+#include<map>
+#include<deque>
+#include<thread>
+#include"Ticket.hpp"
+using namespace std;
+class ReservationThread{
+    friend class ReservationSystem;
+    public:
+    ReservationThread(int num,int flightNumber,Ticket* ticket);
+    void Startup();
+    void Work();
+    static void ReservationThreadMain(void* ReservationThreadObject);
 
+    private:
+    int                   ticket_num=0;
+    int                   ticket_flightNumber=0;
+    Ticket*               ticket_ticket=nullptr;
+    thread*               ticket_thread=nullptr;
+    mutable mutex         ticket_ReservationStatusMutex;
+};
 
+#include<mutex>
+#include<map>
+#include<deque>
+#include<vector>
+#include<thread>
+#include<iostream>
+#include"ReservationThread.hpp"
+#include"ReservationSystem.hpp"
+using namespace std;
+ReservationThread::ReservationThread(int num,int flightNumber,Ticket* ticket){
+    ticket_num=num;
+    ticket_flightNumber=flightNumber;
+    ticket_ticket=ticket;
+}
 
+void ReservationThread::Startup(){
+    ticket_thread=new thread(ReservationThreadMain,this);
+}
 
+void ReservationThread::Work(){
+    int num=ticket_ticket->getNum();
+    while(num>50){
+        ticket_ReservationStatusMutex.lock();
+        ticket_ticket->reservation();
+        num--;
+        ticket_ReservationStatusMutex.unlock();
+    }
+}
 
+void ReservationThread::ReservationThreadMain(void* ReservationThreadObject){
+    ReservationThread* thisReservation=(ReservationThread*)ReservationThreadObject;
+    thisReservation->Work();
+}
+```
 
+#### ReservationSystem
 
+```c++
+#pragma once
+#include<mutex>
+#include<map>
+#include<deque>
+#include<thread>
+#include<vector>
+using namespace std;
+class ReservationThread;
+class Ticket;
+class ReservationSystem{
+    friend class ReservationThread;
+    public:
+    ReservationSystem();
+    static ReservationSystem* CreateOrGet();
+    void CreateReservationThread(int num,int FlightNumber,Ticket* ticket);
 
+    static ReservationSystem*    ticket_ReservationSystem;
+    vector<ReservationThread*>   ticket_ReservationThreads;
+    mutable mutex                ticket_ReservationThreadsMutex;
+    vector<Ticket*>              ticket_Tickets;
+    mutex                        ticket_ReservastionMutex;
+};
 
+#include<iostream>
+#include<vector>
+#include<cstring>
+#include"ReservationSystem.hpp"
+#include"ReservationThread.hpp"
+ReservationSystem* ReservationSystem::ticket_ReservationSystem=nullptr;
 
+ReservationSystem::ReservationSystem(){
+}
 
+ReservationSystem* ReservationSystem::CreateOrGet(){
+    if(!ticket_ReservationSystem){
+        ticket_ReservationSystem=new ReservationSystem();
+    }
+    return ticket_ReservationSystem;
+}
 
+void ReservationSystem::CreateReservationThread(int num,int FlightNumber,Ticket* ticket){
+        ReservationThread* newReservation=new ReservationThread(num,FlightNumber,ticket);
+        ticket_ReservationThreadsMutex.lock();
+        ticket_ReservationThreads.push_back(newReservation);
+        newReservation->Startup();
+        ticket_ReservationThreadsMutex.unlock();
+}
+```
 
+#### Main Program
 
+```c++
+#include<iostream>
+#include<string>
+#include<vector>
+#include"ReservationSystem.hpp"
+#include"ReservationThread.hpp"
+#include<ctime>
+#include<chrono>
+using namespace std;
+int main(void){
+    clock_t start,end;
+    cout<<"Creating Reservation System"<<endl;
+    ReservationSystem* rs=ReservationSystem::CreateOrGet();
+    cout<<"Create Tickets"<<endl;
+    Ticket t1=Ticket(300,122.5,7220);
+    Ticket t2=Ticket(160,242.8,6245);
+    Ticket t3=Ticket(150,322.5,9132);
+    Ticket t4=Ticket(100,62.6,3220);
+    Ticket t5=Ticket(250,420.0,3637);
+    Ticket t6=Ticket(280,334.6,2108);
+    Ticket t7=Ticket(220,122.5,7220);
+    Ticket t8=Ticket(240,122.5,7220);
+    vector<Ticket*> tickets;
+    tickets.push_back(&t1);
+    tickets.push_back(&t2);
+    tickets.push_back(&t3);
+    tickets.push_back(&t4);
+    tickets.push_back(&t5);
+    tickets.push_back(&t6);
+    tickets.push_back(&t7);
+    tickets.push_back(&t8);
+    tickets.push_back(&t8);
+    cout<<"Creating Reservation Threads"<<endl;
+    rs->CreateReservationThread(300,7220,tickets[0]);
+    rs->CreateReservationThread(160,6245,tickets[1]);
+    rs->CreateReservationThread(200,4231,tickets[2]);
+    rs->CreateReservationThread(150,9132,tickets[3]);
+    rs->CreateReservationThread(100,3220,tickets[4]);
+    rs->CreateReservationThread(250,3637,tickets[5]);
+    rs->CreateReservationThread(280,2108,tickets[6]);
+    rs->CreateReservationThread(220,9267,tickets[7]);
+    start=clock();
+    rs->ticket_ReservationThreads[0]->Work();
+    rs->ticket_ReservationThreads[1]->Work();
+    rs->ticket_ReservationThreads[2]->Work();
+    rs->ticket_ReservationThreads[3]->Work();
+    rs->ticket_ReservationThreads[4]->Work();
+    rs->ticket_ReservationThreads[5]->Work();
+    rs->ticket_ReservationThreads[6]->Work();
+    rs->ticket_ReservationThreads[7]->Work();
+    end=clock();
+    cout<<"The execution time of reservation with multithread is "<<(double)(end-start)/CLOCKS_PER_SEC<<"s"<<endl;
+    int running = 1;
 
+#ifdef __EMSCRIPTEN__
+    this_thread::sleep_for(chrono::microseconds(5 * 1000000));
+    cout << "Finishing Tickets Reservation" << endl;
+    cout<<"The execution time of reservation with multithread is "<<(double)(end-start)/CLOCKS_PER_SEC<<"s"<<endl;
+#else
+    while (running)
+    {
+        std::string command;
+        std::cout << "Enter stop, finish ";
+        std::cin >> command;
+
+        if (command == "stop")
+        {
+            running = 0;
+        }
+        else if (command == "finish")
+        {
+            cout << "Total Tickets Reserved: " << rs->ticket_Tickets.size()<< std::endl;
+        }
+        else
+        {
+            std::cout << "Unknown Command" << std::endl;
+        }
+    }
+    #endif
+}
+```
+
+#### Important note:
+To run the code you need to first put all the files and folders in the code folder to the folder ” emsdk\upstream\bin”.
+
+For native main.cpp, I use the make file and enter make in the terminal of vscode to run the code.
+
+For web, I use node.js to run the code. First git bash and activate the emsdk using “source ./emsdk_env.sh”. Then enter “emcc -std=c++14 -pthread -s PROXY_TO_PTHREAD -s ALLOW_MEMORY_GROWTH=1 -s NO_DISABLE_EXCEPTION_CATCHING -s LLD_REPORT_UNDEFINED -s ERROR_ON_UNDEFINED_SYMBOLS=1 Ticket.cpp ReservationThread.cpp ReservationSystem.cpp -o main.html” to compile the native C++ code to web code. Finally, enter “node --experimental-wasm-threads main.js” in the git terminal to run the code.
+
+#### Result
+
+Native 
+
+[![4.jpg](https://i.postimg.cc/xjP7Hj5W/4.jpg)](https://postimg.cc/14fJ1QLH)
+
+Web
+
+[![5.jpg](https://i.postimg.cc/m22nSx6h/5.jpg)](https://postimg.cc/mhJVbn4G)
+
+#### Comparison
+
+For native results, the 95% confidence interval is [0.85364015,0.89175985]. And the possibility of data are not in this interval is 21/30 which is nearly 76.67%. This means that the possibility of data are in this interval is 23.33%. So this possibility is less than 95% which means that the results are not statistically significant.
+
+For web results, the 95% confidence interval is [0.41908404,0.460782626]. And the possibility of data are not in this interval is 23/30 which is nearly 6.67%. This means that the possibility of data are in this interval is 93.33%. So this possibility is less than 95% which means that are not statistically significant.
+
+Besides, the average execution time of web code(0.439933333s) is much faster than that of native code(0.8727s). And the standard deviation of web code(0.055835433) is bigger than that of native code(0.051043217), which means that the result of web code is less concrete and stable than that of native code. 
+
+#### Conclusion
+
+Above all, web code that utilizes the compiled multithread is more faster and less stable than the native C++ code that uses the compiled multithread.
 
 
 
