@@ -583,13 +583,16 @@ For web, I use node.js to run the code. First git bash and activate the emsdk us
 
 Native 
 
-[![4.jpg](https://i.postimg.cc/xjP7Hj5W/4.jpg)](https://postimg.cc/14fJ1QLH)
+[![Test-case1.jpg](https://i.postimg.cc/T1dXmCsb/Test-case1.jpg)](https://postimg.cc/bDBMfHpY)
 
 Web
 
-[![5.jpg](https://i.postimg.cc/m22nSx6h/5.jpg)](https://postimg.cc/mhJVbn4G)
+[![Test-case1.jpg](https://i.postimg.cc/Qdkwgppk/Test-case1.jpg)](https://postimg.cc/SnRgkY1J)
 
 #### Comparison
+
+[![4.jpg](https://i.postimg.cc/xjP7Hj5W/4.jpg)](https://postimg.cc/14fJ1QLH)
+[![5.jpg](https://i.postimg.cc/m22nSx6h/5.jpg)](https://postimg.cc/mhJVbn4G)
 
 For native results, the 95% confidence interval is [0.85364015,0.89175985]. And the possibility of data are not in this interval is 21/30 which is nearly 76.67%. This means that the possibility of data are in this interval is 23.33%. So this possibility is less than 95% which means that the results are not statistically significant.
 
@@ -600,50 +603,4 @@ Besides, the average execution time of web code(0.439933333s) is much faster tha
 #### Conclusion
 
 Above all, web code that utilizes the compiled multithread is more faster and less stable than the native C++ code that uses the compiled multithread.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
