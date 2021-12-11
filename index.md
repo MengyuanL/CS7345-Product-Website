@@ -96,115 +96,61 @@ A few important things to remember:
   
 ```c++
 #include <iostream>
-  
 #include <string>
-  
 #include <vector>
-  
 #include<iomanip>
-  
 #include<ctime>
-  
 using namespace std;
-  
 class Solution {
-  
 public:
-  
     string longestPalindrome(string s) {
-  
         int n = s.size();
-  
-        if (n < 2) {
-                  
-            return s;
-                  
-        }
-                  
-        int maxLen = 1;
-                  
-        int begin = 0;
-                  
+        if (n < 2) {        
+            return s; 
+        }    
+        int maxLen = 1;     
+        int begin = 0;      
         vector<vector<int>> dp(n, vector<int>(n));
-  
-        for (int i = 0; i < n; i++) {
-                              
-            dp[i][i] = true;
-                              
-        }
-                              
+        for (int i = 0; i < n; i++) {                  
+            dp[i][i] = true;         
+        }                 
         for (int L = 2; L <= n; L++) {
-  
-            for (int i = 0; i < n; i++) {
-                                  
-                int j = L + i - 1;
-                                  
+            for (int i = 0; i < n; i++) {             
+                int j = L + i - 1;         
                 if (j >= n) {
-  
                     break;
-  
                 }
-
                 if (s[i] != s[j]) {
-  
                     dp[i][j] = false;
-  
                 }
-  
                 else {
-  
-                    if (j - i < 3) {
-                                  
-                        dp[i][j] = true;
-                                  
-                    }
-                                  
-                    else {
-                                  
-                        dp[i][j] = dp[i + 1][j - 1];
-                                  
-                    }
-                                  
-                }
-                                  
+                    if (j - i < 3) {          
+                        dp[i][j] = true;   
+                    }         
+                    else {                                  
+                        dp[i][j] = dp[i + 1][j - 1];                              
+                    }                              
+                }                                 
                 if (dp[i][j] && j - i + 1 > maxLen) {
-  
                     maxLen = j - i + 1;
-  
                     begin = i;
-  
                 }
-  
             }
-  
         }
-  
         return s.substr(begin, maxLen);
-  
     }
-  
 };
   
 int main() {
-  
     Solution solution;
-  
     string test =
-  
   "acbdefsdgasdgasdgsdgsddcgsadfvsdgbsfdgsadgdfhadfgsdayhgafasdfasgsdgasdjkhfgvsadhuvbsaduiafgshdgbsajdbvsadjkgbsdjkgbasdkjgasdsdagasdfhafdhashgbadfhnadfvsadfgasdgasdhsah";
-  
     string answer = "";
-  
     clock_t startTime, endTime;
-  
     startTime = clock();
-  
     answer = solution.longestPalindrome(test);
-  
     endTime = clock();
-  
     cout << answer << " The execution time is: " << (double)(endTime - startTime) / CLOCKS_PER_SEC << "s";
-  
 }
 ```
 
@@ -270,15 +216,84 @@ void Ticket::reservation() {
 
 #### ReservationSystem code
 
+```c++
+#pragma once
+class ReservationSystem{
+    private:
+    int total;
+    public:
+    ReservationSystem(int t);
+};
+
+#include"ReservationSystem.h"
+ReservationSystem::ReservationSystem(int t){
+    total=t;
+}
+```
+
+#### Main Program
+
+```c++
+#include"Ticket.cpp"
+#include"ReservationSystem.cpp"
+#include<iostream>
+#include<ctime>
+using namespace std;
+int main(){
+    Ticket tickets[10]={Ticket(1000, 77.7, 7360),Ticket(800, 99.9, 8362),Ticket(600, 33.3, 4571),Ticket(500, 42.7, 1651),Ticket(900, 88.6, 1546),Ticket(300, 252.6, 6841),Ticket(777, 180.0, 4862),Ticket(700, 155.0, 9742),Ticket(888, 92.0, 5200),Ticket(200, 46.5, 6349)};
+	cout << "      Flight Information Board\n" << endl;
+	cout << "Flight Number    Tickets       Price" << endl;
+	clock_t start,end;
+	start=clock();
+	for (int i = 0; i < 10; i++) {
+		cout <<"     " <<tickets[i].getFlightNumber()<<"         "<< tickets[i].getNum()<<"          "<< tickets[i].getPrice()<<endl;
+	}
+	end=clock();
+	cout<<"The execution time of showing information is: "<<(double)(end-start)/CLOCKS_PER_SEC<<"s";
+    double sale[10]={0.0};
+	int diff[10];
+	start=clock();
+	for (int i = 0; i < 10; i++) {
+		int count=0;
+		for(int j=0;j<tickets[i].getNum()/2;j++){
+			tickets[i].reservation();
+			count++;
+		}
+		diff[i]=count;
+	}
+	for(int i=0;i<10;i++){
+		sale[i]=tickets[i].getPrice()*diff[i];
+	}
+	cout << "\nInformation updated after reservation" << endl;
+	cout << "\nFlight Number    Tickets       Price      Sales volume" << endl;
+	for (int i = 0; i < 10; i++) {
+		cout << "     " << tickets[i].getFlightNumber() << "         " << tickets[i].getNum() << "          " << tickets[i].getPrice()<<"          "<<sale[i] << endl;
+	}
+	end=clock();
+	cout<<"The execution time of showing information after reservation is: "<<(double)(end-start)/CLOCKS_PER_SEC<<"s";
+	return 0;
+}
+```
+
 ### Explaination
 
 For the Ticket class, it represents all the tickets of one specific flight so it should contains the specific flight number, number of remaining tickets and price. Besides, it should contains the corresponding “get mehtod” which are getNum(), getPrice() and getFlightNumber(). Also, it should contain a reservation() method for passenger to book tickets: after a ticket is booked, then the num of object of Ticket with specific flight number would minus 1. 
 
 For the ReservationSystem class, it represents the reservation system and it contains a constructor to initialize the number of flights in the system.
 
+### Result
+
+Native:
+
+[![1.jpg](https://i.postimg.cc/yNJGSdjF/1.jpg)](https://postimg.cc/mcsjvT0D)
+
+Web:
+
+[![2.jpg](https://i.postimg.cc/k4kr1S1M/2.jpg)](https://postimg.cc/zbSP3yY4)
+
 ### Comparison
 
-For native main.cpp, I use the run code plug-in to run the code. 
+For native main.cpp, I use the Coder Runner plug-in to run the code. 
 
 For index.html, I use the live server and Microsoft Edge to run the code.
 
@@ -307,6 +322,8 @@ Besides, the average execution time of web code(1.773333333ms) is much faster th
 #### Conclusion
 
 Above all, web code that utilizes the compiled js library is more faster and stable than the native C++ code that uses the native C++ library.
+
+## Lab3 Multithread Program
 
 
 
