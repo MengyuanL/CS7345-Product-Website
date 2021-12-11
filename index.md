@@ -227,6 +227,49 @@ Above all, native code is more reliable and runs faster than the transcompiled w
 
 [![Lab2.jpg](https://i.postimg.cc/5t8JfrZz/Lab2.jpg)](https://postimg.cc/CZMXNcMM)
 
+#### Ticket Code
+
+``` c++
+#pragma once
+class Ticket {
+private:
+	int num;
+	double price;
+	int FlightNumber;
+public:
+	Ticket(int n, double p, int FlightNumber);
+	int getNum();
+	double getPrice();
+	int getFlightNumber();
+	void reservation();
+};
+
+#include"Ticket.h"
+Ticket::Ticket(int n,double p,int fn) {
+	num = n;
+	price = p;
+	FlightNumber = fn;
+}
+
+int Ticket::getNum() {
+	return num;
+}
+
+double Ticket::getPrice() {
+	return price;
+}
+
+int Ticket::getFlightNumber() {
+	return FlightNumber;
+}
+
+void Ticket::reservation() {
+	num--;
+}
+```
+
+#### ReservationSystem code
+
 ### Explaination
 
 For the Ticket class, it represents all the tickets of one specific flight so it should contains the specific flight number, number of remaining tickets and price. Besides, it should contains the corresponding “get mehtod” which are getNum(), getPrice() and getFlightNumber(). Also, it should contain a reservation() method for passenger to book tickets: after a ticket is booked, then the num of object of Ticket with specific flight number would minus 1. 
